@@ -1,4 +1,4 @@
-import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Card,
   CardMedia,
@@ -8,10 +8,12 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
-import useStyles from './styles';
+import { handleAddToCart } from '../../../redux/feature/products';
 
-const Product = ({ product, onAddToCart }) => {
+import useStyles from './styles';
+const Product = ({ product }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <Card className={classes.root}>
@@ -38,7 +40,7 @@ const Product = ({ product, onAddToCart }) => {
       <CardActions disableSpacing className={classes.cardActions}>
         <IconButton
           aria-label='Add to Cart'
-          onClick={() => onAddToCart(product.id, 1)}>
+          onClick={() => dispatch(handleAddToCart(product.id, 1))}>
           <AddShoppingCart />
         </IconButton>
       </CardActions>

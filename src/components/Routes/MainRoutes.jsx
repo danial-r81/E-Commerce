@@ -3,38 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Products, Cart, Navbar } from '..';
 import Checkout from '../checkout/Checkout';
 
-const MainRoutes = ({
-  products,
-  cart,
-  totalItems,
-  onAddToCart,
-  handleUpdateCartQty,
-  handleEmptyCart,
-  handleRemoveFromCart,
-}) => {
+const MainRoutes = () => {
   return (
     <Router>
-      <Navbar totalItems={totalItems} />
+      <Navbar />
       <Routes>
-        <Route
-          path='/'
-          element={<Products products={products} onAddToCart={onAddToCart} />}
-        />
-        <Route
-          path='/cart'
-          element={
-            <Cart
-              cart={cart}
-              handleEmptyCart={handleEmptyCart}
-              handleRemoveFromCart={handleRemoveFromCart}
-              handleUpdateCartQty={handleUpdateCartQty}
-            />
-          }
-        />
-        <Route
-          path='/checkout'
-          element={<Checkout cart={cart} handleEmptyCart={handleEmptyCart} />}
-        />
+        <Route path='/' element={<Products />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/checkout' element={<Checkout />} />
       </Routes>
     </Router>
   );

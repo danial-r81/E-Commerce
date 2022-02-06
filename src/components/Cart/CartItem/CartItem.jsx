@@ -7,11 +7,17 @@ import {
   CardMedia,
   CardContent,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import {
+  handleRemoveFromCart,
+  handleUpdateCartQty,
+} from '../../../redux/feature/products';
 
 import useStyles from './styles';
 
-const CartItem = ({ item, handleRemoveFromCart, handleUpdateCartQty }) => {
+const CartItem = ({ item }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   return (
     <Card>
       <CardMedia
@@ -30,14 +36,28 @@ const CartItem = ({ item, handleRemoveFromCart, handleUpdateCartQty }) => {
           <Button
             type='button'
             size='small'
-            onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}>
+            onClick={() =>
+              dispatch(
+                handleUpdateCartQty({
+                  productId: item.id,
+                  quantity: item.quantity - 1,
+                })
+              )
+            }>
             -
           </Button>
           <Typography>{item.quantity}</Typography>
           <Button
             type='button'
             size='small'
-            onClick={() => handleUpdateCartQty(item.id, item.quantity + 1)}>
+            onClick={() =>
+              dispatch(
+                handleUpdateCartQty({
+                  productId: item.id,
+                  quantity: item.quantity + 1,
+                })
+              )
+            }>
             +
           </Button>
         </div>
@@ -45,7 +65,7 @@ const CartItem = ({ item, handleRemoveFromCart, handleUpdateCartQty }) => {
           variant='contained'
           type='button'
           color='secondary'
-          onClick={() => handleRemoveFromCart(item.id)}>
+          onClick={() => dispatch(handleRemoveFromCart(item.id))}>
           Remove
         </Button>
       </CardActions>

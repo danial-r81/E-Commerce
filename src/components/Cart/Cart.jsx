@@ -1,18 +1,17 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Container, Typography, Button, Grid } from '@material-ui/core';
+import { handleEmptyCart } from '../../redux/feature/products';
+import CartItem from './CartItem/CartItem';
 
 import useStyle from './styles';
-import CartItem from './CartItem/CartItem';
-import { Link } from 'react-router-dom';
 
-const Cart = ({
-  cart,
-  handleEmptyCart,
-  handleRemoveFromCart,
-  handleUpdateCartQty,
-}) => {
+const Cart = () => {
   const classes = useStyle();
-  console.log(cart);
+  const cart = useSelector((state) => state.productsReducer.cart);
+  const dispatch = useDispatch();
+
   const EmptyCart = () => (
     <Typography variant='subtitle1'>
       shopping cart is empty,{' '}
@@ -27,11 +26,7 @@ const Cart = ({
       <Grid container spacing={3}>
         {cart.line_items.map((item) => (
           <Grid item xs={12} sm={4} key={item.id}>
-            <CartItem
-              item={item}
-              handleRemoveFromCart={handleRemoveFromCart}
-              handleUpdateCartQty={handleUpdateCartQty}
-            />
+            <CartItem item={item} />
           </Grid>
         ))}
       </Grid>
@@ -46,7 +41,7 @@ const Cart = ({
             size='large'
             type='button'
             color='secondary'
-            onClick={handleEmptyCart}>
+            onClick={() => dispatch(handleEmptyCart())}>
             Empty Cart
           </Button>
           <Button

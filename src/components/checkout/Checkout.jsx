@@ -1,11 +1,14 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowForwardIos } from '@material-ui/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleEmptyCart } from '../../redux/feature/products';
 
 import useStyles from './styles';
 
-const Checkout = ({ cart, handleEmptyCart }) => {
+const Checkout = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const cart = useSelector((state) => state.productsReducer.cart);
   return (
     <div className={classes.checkoutContainer}>
       <div className={classes.productsSubtotal}>
@@ -15,7 +18,7 @@ const Checkout = ({ cart, handleEmptyCart }) => {
       <Link
         to='/'
         className={classes.buyMoreProducts}
-        onClick={handleEmptyCart}>
+        onClick={() => dispatch(handleEmptyCart())}>
         Buy more products <ArrowForwardIos />
       </Link>
     </div>

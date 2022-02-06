@@ -3,18 +3,19 @@ import {
   Toolbar,
   IconButton,
   Badge,
-  MenuItem,
-  Menu,
   Typography,
 } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
-import useStyles from './styles';
 import ecommerceLogo from '../../assets/ecommerce.png';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const Navbar = ({ totalItems }) => {
+import useStyles from './styles';
+
+const Navbar = () => {
   const classes = useStyles();
   const location = useLocation();
+  const cart = useSelector((state) => state.productsReducer.cart);
 
   return (
     <>
@@ -42,7 +43,7 @@ const Navbar = ({ totalItems }) => {
                 to='/cart'
                 aria-label='show cart items'
                 color='inherit'>
-                <Badge badgeContent={totalItems} color='secondary'>
+                <Badge badgeContent={cart?.total_items} color='secondary'>
                   <ShoppingCart />
                 </Badge>
               </IconButton>
